@@ -24,11 +24,11 @@ incomeTax inc = incomeTax' inc `div` 100
 
 {- Exact income text in pennies instead of pounds -}
 incomeTax' :: Int -> Int
-incomeTax' inc = 
-    if tinc <= 37500 then       20 * tinc
-    else if tinc <= 150000 then 40 * tinc
-    else                        45 * tinc
-    where tinc = taxableIncome inc
+incomeTax' inc = 20*tinc1 + 40*tinc2 + 45*tinc3
+    where   tinc = taxableIncome inc
+            tinc1 = tinc `min` 37500
+            tinc2 = ((tinc `min` 150000) - 37500) `max` 0
+            tinc3 = (tinc - 150000) `max` 0
 
 
 
